@@ -30,7 +30,9 @@ jobs:
         copy wallpaper.png D:\a\wallpaper.png
         copy wallpaper.bat D:\a\wallpaper.bat
     - name: Open Tunnel.
-      run: Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
+      run: |
+        Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
+        Set-LocalUser -Name "pc" -Password (ConvertTo-SecureString -AsPlainText "pc" -Force)
     - name: Thông tin RPD miễn phí của bạn CPU 2 Core - 7GB Ram - 256 SSD.
       run: cmd /c start.bat
     - name: Made Successfully! You Can Close Tab Now.
